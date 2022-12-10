@@ -25,6 +25,7 @@
 		9ADDBD5F2943557D00FD092F /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADDBD5E2943557D00FD092F /* ChatsViewController.swift */; };
 		9ADDBD612943559100FD092F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADDBD602943559100FD092F /* SettingsViewController.swift */; };
 		9AEC8CF02943CE8C00B0DDD7 /* URL_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC8CEF2943CE8B00B0DDD7 /* URL_extension.swift */; };
+		9AEC8CF22944DB3000B0DDD7 /* String_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC8CF12944DB3000B0DDD7 /* String_extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		9ADDBD5E2943557D00FD092F /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		9ADDBD602943559100FD092F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9AEC8CEF2943CE8B00B0DDD7 /* URL_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL_extension.swift; sourceTree = "<group>"; };
+		9AEC8CF12944DB3000B0DDD7 /* String_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String_extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				9ADDBD56294290CE00FD092F /* UIViewController_extension.swift */,
 				9ADDBD5829434C2C00FD092F /* UIImage_extension.swift */,
 				9AEC8CEF2943CE8B00B0DDD7 /* URL_extension.swift */,
+				9AEC8CF12944DB3000B0DDD7 /* String_extension.swift */,
 			);
 			path = "System extensions";
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 				9ADDBD4C2940B2EC00FD092F /* LoginViewController.swift in Sources */,
 				9ADDBD552942868C00FD092F /* RegViewController.swift in Sources */,
 				9AEC8CF02943CE8C00B0DDD7 /* URL_extension.swift in Sources */,
+				9AEC8CF22944DB3000B0DDD7 /* String_extension.swift in Sources */,
 				9ADDBD57294290CE00FD092F /* UIViewController_extension.swift in Sources */,
 				9ADDBD3029400AF500FD092F /* Corp_messenger.xcdatamodeld in Sources */,
 			);

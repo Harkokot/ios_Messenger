@@ -10,7 +10,10 @@ import UIKit
 final class ChatsViewController: UIViewController{
     
     private let label = UILabel()
-    private let temp = UITableView(frame: .zero, style: .plain)
+    //private let temp = UITableView(frame: .zero, style: .plain)
+    private let temp = UIView()
+    
+    private let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(barBurronTapped))
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         .lightContent
@@ -19,8 +22,10 @@ final class ChatsViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: false) //сокрытие навбара
         navigationController?.navigationBar.topItem?.title = "Chats"
-        navigationController?.navigationBar.topItem?.titleView?.tintColor = .white
+        navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.topItem?.setHidesBackButton(true, animated: false)
+        
+        navigationController?.navigationBar.topItem?.setRightBarButton(addButton, animated: true)
     }
     
     override func viewDidLoad() {
@@ -40,7 +45,15 @@ final class ChatsViewController: UIViewController{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("Messages")
+        
+    }
+    
+    
+    
+    
+    @objc
+    func barBurronTapped(){
+        
     }
     
 }
