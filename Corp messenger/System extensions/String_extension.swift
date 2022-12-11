@@ -7,6 +7,6 @@
 
 import Foundation
 
-extension String: Error{
+extension String: Error, multiplyTypes{
     
 }

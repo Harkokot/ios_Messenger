@@ -24,6 +24,7 @@ final class ChatsViewController: UIViewController{
     
     //MARK: WebSocket
     private var WebSocket: URLSessionWebSocketTask?
+    private var userOnScreen: Bool = true
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         .lightContent
@@ -36,6 +37,8 @@ final class ChatsViewController: UIViewController{
         navigationController?.navigationBar.topItem?.setHidesBackButton(true, animated: false)
         
         navigationController?.navigationBar.topItem?.setRightBarButton(addButton, animated: true)
+        
+        userOnScreen = true
     }
     
     override func viewDidLoad() {
@@ -46,8 +49,9 @@ final class ChatsViewController: UIViewController{
         setupViews()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        print("Chat disappear")
+        userOnScreen = false
     }
     
     private func setupWS(){
@@ -218,50 +222,62 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
             case .success(let message):
                 switch message{
                 case .string(let data):
-                    print("String")
-                    print(data)
-                    if let response = try? JSONDecoder().decode(wsResponseModels.wsModel.self, from: Data(data.utf8)){
-                        print(response)
+                    if let response = try? JSONDecoder().decode(wsResponseModels.wsResponseText.self, from: Data(data.utf8)){
+                        switch response.route{
+                        case "newJwt":
+                            self.defaults.set(response.payload, forKey: "token")
+                            print("newJwt")
+                            break
+                        case "onError":
+                            break
+                        default:
+                            print("Not default route: \(response.route)")
+                            break
+                        }
+                    }
+                    else{
+                        self.wsResponseHandle(res: data)
                     }
                     break
                 case .data(let data):
                     print("data")
-                    print(data)
                     break
                 @unknown default:
                     print("Hz")
                     break
                 }
-                //if let response = try? JSONDecoder().decode(wsResponseModels.wsModel.self, from: message)
                 break
             case .failure(let error):
                 print(error)
                 break
             }
             
-            
+            print("again")
+            self.wsRecieve()
         })
     }
     
     //MARK: WebSocket Response handler
-    private func wsResponseHandle(res: wsResponseModels.wsModel){
-        switch res.route{
-        case "newJwt":
-            break
-        case "newMessage":
-            break
-        case "newDialog":
-            break
-        case "getMessages":
-            break
-        case "getDialogs":
-            break
-        case "onError":
-            break
-        default:
-            print("Not default route: \(res.route)")
-            break
+    private func wsResponseHandle(res: String){
+        
+        if let newDialogRequest = try? JSONDecoder().decode(wsResponseModels.wsResponseNewDialog.self, from: Data(res.utf8)){
+            print("new Dialog")
+            //TODO: Создать сущности диалога и пользователя(сделать перед этим запрос) в core data
+            return
         }
+        
+        if let newMessageRequest = try? JSONDecoder().decode(wsResponseModels.wsResponseNewMessage.self, from: Data(res.utf8)){
+            print("new Message")
+            //TODO: создать сущность сообщения и связать с диалогом, обновить время последнего сообшения у сущности диалога
+            return
+        }
+        
+        //TODO: Обработка еще двух роутов, которые описаны ниже
+//        case "getMessages":
+//            break
+//        case "getDialogs":
+//            break
+        
     }
     
     private func wsClose(){
@@ -276,6 +292,16 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
         print("WS disconnected")
     }
+}
+
+//MARK: - wsHandlers
+extension ChatsViewController{
+    
+    private func wsNewDialogHandler(newDialog: wsResponseModels.wsResponseNewDialog){
+        //let coreDataDialog = newDialogCoreData(dialog_id: newDialog.newDialog.dialog_id, lastMessageTime: Int64(newDialog.newDialog.lastMessageTime))
+        
+    }
+    
 }
 
 //MARK: - TableView Extension
