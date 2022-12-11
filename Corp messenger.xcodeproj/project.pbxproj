@@ -26,6 +26,8 @@
 		9ADDBD612943559100FD092F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADDBD602943559100FD092F /* SettingsViewController.swift */; };
 		9AEC8CF02943CE8C00B0DDD7 /* URL_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC8CEF2943CE8B00B0DDD7 /* URL_extension.swift */; };
 		9AEC8CF22944DB3000B0DDD7 /* String_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC8CF12944DB3000B0DDD7 /* String_extension.swift */; };
+		9AEC8CF42944EF2B00B0DDD7 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC8CF32944EF2B00B0DDD7 /* MessageCell.swift */; };
+		9AEC8CF629451F5E00B0DDD7 /* wsResponseModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEC8CF529451F5E00B0DDD7 /* wsResponseModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		9ADDBD602943559100FD092F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9AEC8CEF2943CE8B00B0DDD7 /* URL_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL_extension.swift; sourceTree = "<group>"; };
 		9AEC8CF12944DB3000B0DDD7 /* String_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String_extension.swift; sourceTree = "<group>"; };
+		9AEC8CF32944EF2B00B0DDD7 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		9AEC8CF529451F5E00B0DDD7 /* wsResponseModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wsResponseModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				9ADDBD52294255D100FD092F /* ResponseModels.swift */,
+				9AEC8CF529451F5E00B0DDD7 /* wsResponseModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -121,6 +126,7 @@
 		9ADDBD4A2940B2DA00FD092F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9AEC8CF32944EF2B00B0DDD7 /* MessageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -215,6 +221,7 @@
 				9ADDBD5929434C2C00FD092F /* UIImage_extension.swift in Sources */,
 				9ADDBD53294255D100FD092F /* ResponseModels.swift in Sources */,
 				9ADDBD2629400AF500FD092F /* AppDelegate.swift in Sources */,
+				9AEC8CF629451F5E00B0DDD7 /* wsResponseModels.swift in Sources */,
 				9ADDBD5129423D5F00FD092F /* URLSession_extension.swift in Sources */,
 				9ADDBD612943559100FD092F /* SettingsViewController.swift in Sources */,
 				9ADDBD5F2943557D00FD092F /* ChatsViewController.swift in Sources */,
@@ -225,6 +232,7 @@
 				9AEC8CF22944DB3000B0DDD7 /* String_extension.swift in Sources */,
 				9ADDBD57294290CE00FD092F /* UIViewController_extension.swift in Sources */,
 				9ADDBD3029400AF500FD092F /* Corp_messenger.xcdatamodeld in Sources */,
+				9AEC8CF42944EF2B00B0DDD7 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

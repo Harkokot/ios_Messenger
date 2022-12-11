@@ -14,6 +14,14 @@ final class MainTabBarController: UITabBarController{
         
         generateTabBar()
         setupTabBar()
+        
+        self.selectedIndex = 1
+        
+//        let tabBarAppearance = UITabBarAppearance()
+//        tabBarAppearance.configureWithOpaqueBackground()
+//        tabBarAppearance.backgroundColor = UIColor(cgColor: CGColor(red: 0.13, green: 0.39, blue: 0.60, alpha: 1.00))
+//        //self.tabBar.standardAppearance = tabBarAppearance
+//        self.tabBar.scrollEdgeAppearance = tabBarAppearance
     }
     
     private func generateTabBar(){
@@ -34,7 +42,7 @@ final class MainTabBarController: UITabBarController{
         self.tabBar.backgroundColor = UIColor(cgColor: CGColor(red: 0.13, green: 0.39, blue: 0.60, alpha: 1.00))
         self.tabBar.tintColor = UIColor(red: 1.00, green: 0.90, blue: 0.00, alpha: 1.00)
         self.tabBar.unselectedItemTintColor = .white
-        //self.tabBar.barTintColor = .darkGray
+        self.tabBar.barTintColor = UIColor(cgColor: CGColor(red: 0.09, green: 0.33, blue: 0.56, alpha: 1.00))
     }
 }
 

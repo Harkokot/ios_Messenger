@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Dialog" representedClassName="Dialog" syncable="YES" codeGenerationType="class">
+        <attribute name="dialog_id" optional="YES" attributeType="String"/>
+        <attribute name="lastMessageTime" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="dialog" inverseEntity="Message"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="dialog" inverseEntity="User"/>
+    </entity>
+    <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
+        <attribute name="edited" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="message_id" optional="YES" attributeType="String"/>
+        <attribute name="message_text" optional="YES" attributeType="String"/>
+        <attribute name="read" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="String"/>
+        <relationship name="dialog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Dialog" inverseName="messages" inverseEntity="Dialog"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="imageBlob" attributeType="String"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="phone" attributeType="String"/>
         <attribute name="surname" attributeType="String"/>
+        <relationship name="dialog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Dialog" inverseName="user" inverseEntity="Dialog"/>
     </entity>
 </model>
