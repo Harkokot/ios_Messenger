@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A2B23C6294778F900E01A11 /* UIScrollView_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2B23C5294778F900E01A11 /* UIScrollView_extension.swift */; };
+		9A2B23C82948F71A00E01A11 /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2B23C72948F71A00E01A11 /* DialogViewController.swift */; };
+		9A2B23CB294924FB00E01A11 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2B23CA294924FA00E01A11 /* MessageView.swift */; };
+		9A4854D7294B269C0060F13C /* CoreData_extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4854D6294B269C0060F13C /* CoreData_extension.swift */; };
+		9A4854D9294B2A480060F13C /* wsRequestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4854D8294B2A480060F13C /* wsRequestModels.swift */; };
 		9ADDBD2629400AF500FD092F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADDBD2529400AF500FD092F /* AppDelegate.swift */; };
 		9ADDBD2829400AF500FD092F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADDBD2729400AF500FD092F /* SceneDelegate.swift */; };
 		9ADDBD2A29400AF500FD092F /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADDBD2929400AF500FD092F /* LaunchViewController.swift */; };
@@ -31,6 +36,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A2B23C5294778F900E01A11 /* UIScrollView_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView_extension.swift; sourceTree = "<group>"; };
+		9A2B23C72948F71A00E01A11 /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
+		9A2B23CA294924FA00E01A11 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		9A4854D6294B269C0060F13C /* CoreData_extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData_extension.swift; sourceTree = "<group>"; };
+		9A4854D8294B2A480060F13C /* wsRequestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = wsRequestModels.swift; sourceTree = "<group>"; };
 		9ADDBD2229400AF500FD092F /* Corp messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Corp messenger.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ADDBD2529400AF500FD092F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9ADDBD2729400AF500FD092F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +120,7 @@
 				9ADDBD5C2943554600FD092F /* ContactsViewController.swift */,
 				9ADDBD5E2943557D00FD092F /* ChatsViewController.swift */,
 				9ADDBD602943559100FD092F /* SettingsViewController.swift */,
+				9A2B23C72948F71A00E01A11 /* DialogViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -119,6 +130,7 @@
 			children = (
 				9ADDBD52294255D100FD092F /* ResponseModels.swift */,
 				9AEC8CF529451F5E00B0DDD7 /* wsResponseModels.swift */,
+				9A4854D8294B2A480060F13C /* wsRequestModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -127,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				9AEC8CF32944EF2B00B0DDD7 /* MessageCell.swift */,
+				9A2B23CA294924FA00E01A11 /* MessageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -140,6 +153,8 @@
 				9ADDBD5829434C2C00FD092F /* UIImage_extension.swift */,
 				9AEC8CEF2943CE8B00B0DDD7 /* URL_extension.swift */,
 				9AEC8CF12944DB3000B0DDD7 /* String_extension.swift */,
+				9A2B23C5294778F900E01A11 /* UIScrollView_extension.swift */,
+				9A4854D6294B269C0060F13C /* CoreData_extension.swift */,
 			);
 			path = "System extensions";
 			sourceTree = "<group>";
@@ -217,22 +232,27 @@
 				9ADDBD2A29400AF500FD092F /* LaunchViewController.swift in Sources */,
 				9ADDBD5D2943554600FD092F /* ContactsViewController.swift in Sources */,
 				9ADDBD4F2941281900FD092F /* UITextField_extension.swift in Sources */,
+				9A4854D7294B269C0060F13C /* CoreData_extension.swift in Sources */,
 				9ADDBD5B294354F300FD092F /* MainTabBarController.swift in Sources */,
 				9ADDBD5929434C2C00FD092F /* UIImage_extension.swift in Sources */,
 				9ADDBD53294255D100FD092F /* ResponseModels.swift in Sources */,
+				9A4854D9294B2A480060F13C /* wsRequestModels.swift in Sources */,
 				9ADDBD2629400AF500FD092F /* AppDelegate.swift in Sources */,
 				9AEC8CF629451F5E00B0DDD7 /* wsResponseModels.swift in Sources */,
 				9ADDBD5129423D5F00FD092F /* URLSession_extension.swift in Sources */,
+				9A2B23CB294924FB00E01A11 /* MessageView.swift in Sources */,
 				9ADDBD612943559100FD092F /* SettingsViewController.swift in Sources */,
 				9ADDBD5F2943557D00FD092F /* ChatsViewController.swift in Sources */,
 				9ADDBD2829400AF500FD092F /* SceneDelegate.swift in Sources */,
 				9ADDBD4C2940B2EC00FD092F /* LoginViewController.swift in Sources */,
 				9ADDBD552942868C00FD092F /* RegViewController.swift in Sources */,
 				9AEC8CF02943CE8C00B0DDD7 /* URL_extension.swift in Sources */,
+				9A2B23C6294778F900E01A11 /* UIScrollView_extension.swift in Sources */,
 				9AEC8CF22944DB3000B0DDD7 /* String_extension.swift in Sources */,
 				9ADDBD57294290CE00FD092F /* UIViewController_extension.swift in Sources */,
 				9ADDBD3029400AF500FD092F /* Corp_messenger.xcdatamodeld in Sources */,
 				9AEC8CF42944EF2B00B0DDD7 /* MessageCell.swift in Sources */,
+				9A2B23C82948F71A00E01A11 /* DialogViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

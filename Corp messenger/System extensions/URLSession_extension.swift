@@ -15,7 +15,7 @@ extension URLSession{
     }
     
     enum urls: String{
-        case DEV = "http://10.192.240.149:3000"
+        case DEV = "http://localhost:3000"
         case PROD = "https://nikitadumkin.fun/iOS" //TODO: Поменять
     }
     

@@ -25,6 +25,11 @@ enum wsResponseModels{
         let payload: wsNewMessage
     }
     
+    struct wsResponseGetDialogs: Decodable{
+        let route: String
+        let payload: [Dialog]
+    }
+    
     //Structs not for primary usage
     struct Message: Decodable {
         let message_id: String

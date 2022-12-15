@@ -20,7 +20,7 @@ final class RegViewConroller: UIViewController{
     //form
     private let uploadImageButton = UIButton()
     
-    private let form = UIView()
+    private let form = UIScrollView()//UIView()
     private let phoneInput = UITextField()
     private let nameInput = UITextField()
     private let surnameInput = UITextField()
@@ -59,7 +59,7 @@ final class RegViewConroller: UIViewController{
     private func setupViews(){
         setupView()
         setupTitleLabel()
-        setupUploadImageButton()
+        //setupUploadImageButton()
         setupRegButton()
         setupForm()
     }
@@ -79,7 +79,7 @@ final class RegViewConroller: UIViewController{
         self.view.addSubview(regButton)
         
         
-        regButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        regButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         regButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         regButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
         regButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
@@ -88,13 +88,16 @@ final class RegViewConroller: UIViewController{
     }
     
     private func setupForm(){
+        print("Hi")
         setupInputs()
-        
+        form.isScrollEnabled = true
+        form.contentSize = CGSize(width: 300, height: 800)
+        form.isUserInteractionEnabled = true
         self.view.addSubview(form)
         
-        form.topAnchor.constraint(equalTo: uploadImageButton.bottomAnchor).isActive = true
+        form.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
         form.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        form.bottomAnchor.constraint(equalTo: regButton.topAnchor).isActive = true
+        form.bottomAnchor.constraint(equalTo: regButton.topAnchor, constant: -20).isActive = true
         form.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         form.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         form.translatesAutoresizingMaskIntoConstraints = false
@@ -104,6 +107,16 @@ final class RegViewConroller: UIViewController{
         let distanceBetweenInputs: CGFloat = 20
         
         //views
+        uploadImageButton.setTitle("+", for: .normal)
+        uploadImageButton.setTitleColor(UIColor(red: 0.09, green: 0.25, blue: 0.38, alpha: 1.00), for: .normal)
+        uploadImageButton.layer.cornerRadius = 50
+        uploadImageButton.layer.backgroundColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        uploadImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        uploadImageButton.contentVerticalAlignment = .center
+        uploadImageButton.contentHorizontalAlignment = .center
+        uploadImageButton.layer.borderWidth = 2
+        uploadImageButton.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        
         phoneInput.placeholder = "+79876543210"
         phoneInput.textColor = .black
         phoneInput.textAlignment = .left
@@ -173,6 +186,7 @@ final class RegViewConroller: UIViewController{
         passwordRepeatInput.keyboardType = .asciiCapable
         
         //add subView
+        form.addSubview(uploadImageButton)
         form.addSubview(phoneInput)
         form.addSubview(nameInput)
         form.addSubview(surnameInput)
@@ -182,7 +196,15 @@ final class RegViewConroller: UIViewController{
         form.addSubview(passwordRepeatInput)
         
         //Constraints
-        phoneInput.topAnchor.constraint(equalTo: form.topAnchor, constant: distanceBetweenInputs).isActive = true
+        uploadImageButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        uploadImageButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        uploadImageButton.topAnchor.constraint(equalTo: form.topAnchor).isActive = true
+        uploadImageButton.centerXAnchor.constraint(equalTo: form.centerXAnchor).isActive = true
+        uploadImageButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        uploadImageButton.addTarget(self, action: #selector(pictUpload), for: .touchUpInside)
+        
+        phoneInput.topAnchor.constraint(equalTo: uploadImageButton.bottomAnchor, constant: distanceBetweenInputs).isActive = true
         phoneInput.centerXAnchor.constraint(equalTo: form.centerXAnchor).isActive = true
         phoneInput.widthAnchor.constraint(equalToConstant: 300).isActive = true
         phoneInput.heightAnchor.constraint(equalToConstant: 55).isActive = true
@@ -243,28 +265,6 @@ final class RegViewConroller: UIViewController{
         titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    private func setupUploadImageButton(){
-        uploadImageButton.setTitle("+", for: .normal)
-        uploadImageButton.setTitleColor(UIColor(red: 0.09, green: 0.25, blue: 0.38, alpha: 1.00), for: .normal)
-        uploadImageButton.layer.cornerRadius = 50
-        uploadImageButton.layer.backgroundColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
-        uploadImageButton.titleLabel?.font = UIFont.systemFont(ofSize: 30, weight: .bold)
-        uploadImageButton.contentVerticalAlignment = .center
-        uploadImageButton.contentHorizontalAlignment = .center
-        uploadImageButton.layer.borderWidth = 2
-        uploadImageButton.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
-        
-        self.view.addSubview(uploadImageButton)
-        
-        uploadImageButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        uploadImageButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        uploadImageButton.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 20).isActive = true
-        uploadImageButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        uploadImageButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        uploadImageButton.addTarget(self, action: #selector(pictUpload), for: .touchUpInside)
     }
     
     //MARK: - Fetch
@@ -391,47 +391,50 @@ final class RegViewConroller: UIViewController{
 extension RegViewConroller: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField.tag == 1{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.view.transform = self.view.transform.translatedBy(x: 0, y: -30)
-            })
+            form.scrollToBottom(animated: true)
+            print("Move")
         }
-        else if textField.tag == 2{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.view.transform = self.view.transform.translatedBy(x: 0, y: -105)
-            })
-        }
-        else if textField.tag == 3{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.view.transform = self.view.transform.translatedBy(x: 0, y: -135)
-            })
-        }
-        else if textField.tag == 4{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.view.transform = self.view.transform.translatedBy(x: 0, y: -140)
-            })
-        }
+//        else if textField.tag == 2{
+//            UIView.animate(withDuration: 0.2, animations: {
+//                self.view.transform = self.view.transform.translatedBy(x: 0, y: -105)
+//            })
+//        }
+//        else if textField.tag == 3{
+//            UIView.animate(withDuration: 0.2, animations: {
+//                self.view.transform = self.view.transform.translatedBy(x: 0, y: -135)
+//            })
+//        }
+//        else if textField.tag == 4{
+//            UIView.animate(withDuration: 0.2, animations: {
+//                self.view.transform = self.view.transform.translatedBy(x: 0, y: -140)
+//            })
+//        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == 1{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.view.transform = self.view.transform.translatedBy(x: 0, y: 30)
-            })
-        }
-        else if textField.tag == 2{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.view.transform = self.view.transform.translatedBy(x: 0, y: 105)
-            })
-        }
-        else if textField.tag == 3{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.view.transform = self.view.transform.translatedBy(x: 0, y: 135)
-            })
-        }
-        else if textField.tag == 4{
-            UIView.animate(withDuration: 0.2, animations: {
-                self.view.transform = self.view.transform.translatedBy(x: 0, y: 140)
-            })
+//        if textField.tag == 1{
+//            UIView.animate(withDuration: 0.2, animations: {
+//                self.view.transform = self.view.transform.translatedBy(x: 0, y: 30)
+//            })
+//        }
+//        else if textField.tag == 2{
+//            UIView.animate(withDuration: 0.2, animations: {
+//                self.view.transform = self.view.transform.translatedBy(x: 0, y: 105)
+//            })
+//        }
+//        else if textField.tag == 3{
+//            UIView.animate(withDuration: 0.2, animations: {
+//                self.view.transform = self.view.transform.translatedBy(x: 0, y: 135)
+//            })
+//        }
+//        else if textField.tag == 4{
+//            UIView.animate(withDuration: 0.2, animations: {
+//                self.view.transform = self.view.transform.translatedBy(x: 0, y: 140)
+//            })
+//        }
+        
+        if textField.tag == 4{
+            form.setContentOffset(.zero, animated: true)
         }
     }
 }

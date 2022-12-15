@@ -280,6 +280,8 @@ final class SettingsViewController: UIViewController{
                 return
             }
             
+            CoreDataBase.deleteAllData()
+            
             self.defaults.removeObject(forKey: "phone")
             self.defaults.removeObject(forKey: "token")
             

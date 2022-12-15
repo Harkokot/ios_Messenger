@@ -59,6 +59,10 @@ extension UIImage{
     static func convertBase64StringToImage (imageBase64String:String) -> UIImage {
         let imageData = Data(base64Encoded: imageBase64String)
         let image = UIImage(data: imageData!)
-        return image!
+        
+        if let img = image{
+            return img
+        }
+        return UIImage()
     }
 }
