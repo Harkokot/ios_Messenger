@@ -298,8 +298,11 @@ final class ChatsViewController: UIViewController{
         
         if userOnMessageScreen{
             DispatchQueue.main.async {
-                print("Trying to update")
-                self.dialogController.messageUpdate()
+                if let viewController = self.navigationController?.children{
+                    if let vc = viewController[viewController.count-1] as? DialogViewController{
+                        vc.messageUpdate()
+                    }
+                }
             }
         }
         
@@ -314,12 +317,9 @@ final class ChatsViewController: UIViewController{
         let headers: [String: String] = ["Authorization":"Bearer " + token]
         
         URLSession.dataFetch(url: "/api/userData", parameters: parameters, headers: headers, requestType: .GET){ statusCode, data in
-            print("Callback")
-            print(statusCode)
             if 200...299 ~= statusCode{
                 if let responseJSON = try? JSONDecoder().decode(ResponseModels.userDataResponse.self, from: data)
                 {
-                    print(statusCode)
                     let responseData = responseJSON.data
                     DispatchQueue.main.sync {
                         guard let context = self.context else {return}
@@ -343,8 +343,6 @@ final class ChatsViewController: UIViewController{
                                 
                                 do{
                                     try context.save()
-                                    print("new dialog wsa created")
-                                    
                                     self.localFetchDialogs()
                                 }
                                 catch{
@@ -358,8 +356,6 @@ final class ChatsViewController: UIViewController{
                         catch{
                             
                         }
-                        
-                        //self.getUserData()
                     }
                     
                 }
@@ -391,6 +387,7 @@ final class ChatsViewController: UIViewController{
 extension ChatsViewController: URLSessionWebSocketDelegate{
     
     func wsSend(message: String){
+        print("message sended")
         WebSocket?.send(.string(message)){ error in
             if let error = error{
                 print("Send error: \(error)")
@@ -408,7 +405,6 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
                         switch response.route{
                         case "newJwt":
                             self.defaults.set(response.payload, forKey: "token")
-                            print("newJwt")
                             break
                         case "onError":
                             break
@@ -433,8 +429,6 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
                 print(error)
                 break
             }
-            
-            print("again")
             self.wsRecieve()
         })
     }
@@ -454,7 +448,6 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
                 
                 for member in newDialogRequest.payload.newDialog.members{
                     if(defaults.string(forKey: "phone") != member){
-                        print("fetching user")
                         fetchUserData(phone: member, dialog_id: newDialogRequest.payload.newDialog.dialog_id)
                     }
                 }
@@ -491,8 +484,6 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
                     data[0].addToMessages(newCDMessage)
                     do{
                         try context.save()
-                        localFetchDialogs()
-                        print("new message was created")
                     }
                     catch{
                         
@@ -505,13 +496,15 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
             catch{
                 
             }
+            
+            localFetchDialogs()
+            
             return
         }
         
         //MARK: Get dialogs parser
         if let getDialogsRequest = try? JSONDecoder().decode(wsResponseModels.wsResponseGetDialogs.self, from: Data(res.utf8)){
             guard let context = context else {return}
-            print("GetDialogs started")
             for dialog in getDialogsRequest.payload{
                 let fetchRequest = Dialog.fetchRequest()
                 fetchRequest.predicate = NSPredicate(format: "dialog_id LIKE %@", dialog.dialog_id)
@@ -519,7 +512,6 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
                 
                 do{
                     dialogData = try context.fetch(fetchRequest)
-                    print(dialogData.count)
                     if dialogData.count == 1{
                         guard let messages = dialog.messages else {return}
                         for (id, message) in messages{
@@ -546,14 +538,12 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
                         let newDialog = newDialogCoreData(dialog_id: dialog.dialog_id, lastMessageTime: Int64(dialog.lastMessageTime))
                         
                         for member in dialog.members{
-                            print(member)
                             if(defaults.string(forKey: "phone") != member){
-                                print("fetching user")
                                 fetchUserData(phone: member, dialog_id: dialog.dialog_id)
                             }
                         }
                         
-                        guard let messages = dialog.messages else {print("lmao");return}
+                        guard let messages = dialog.messages else {return}
                         for (id, message) in messages{
                             let newMessage = newMessageCoreData(user_id: message.user_id, message_id: message.message_id, message_text: message.message_text, time: message.time)
                             newMessage.dialog = newDialog
@@ -656,7 +646,7 @@ extension ChatsViewController: UITableViewDelegate{
             let dialogController = DialogViewController()
             dialogController.dialogConfigure(dialog_id: dialog.dialog_id ?? "")
             navigationController?.pushViewController(dialogController, animated: true)
-            userOnMessageScreen = true
+            self.userOnMessageScreen = true
         }
     }
     

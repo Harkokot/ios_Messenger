@@ -26,8 +26,8 @@ final class MessageView: UIView{
         tempLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         tempLabel.textContainer.lineBreakMode = .byWordWrapping
         tempLabel.isScrollEnabled = false
-        //tempLabel.textContainer.lineFragmentPadding = 5
-        tempLabel.layer.cornerRadius = 5
+        tempLabel.textContainer.lineFragmentPadding = 15
+        tempLabel.layer.cornerRadius = 15
         
         return tempLabel
     }()
@@ -46,8 +46,8 @@ final class MessageView: UIView{
     
     func configure(sender: sender, text: String){
         
-        messageText.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
-        messageText.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5).isActive = true
+        messageText.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        messageText.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
         messageText.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
         messageText.translatesAutoresizingMaskIntoConstraints = false
         
@@ -55,11 +55,11 @@ final class MessageView: UIView{
         
         if sender == .user{
             messageText.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
-            messageText.backgroundColor = .green
+            messageText.backgroundColor = UIColor(red: 0.24, green: 0.68, blue: 0.64, alpha: 1.00)
         }
         else{
             messageText.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
-            messageText.backgroundColor = .black
+            messageText.backgroundColor = UIColor(cgColor: CGColor(red: 0.13, green: 0.39, blue: 0.60, alpha: 1.00))
         }
     }
 }
