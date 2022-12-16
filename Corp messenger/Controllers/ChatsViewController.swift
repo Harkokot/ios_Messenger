@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import AudioToolbox
 
 final class ChatsViewController: UIViewController{
     //MARK: Storages
@@ -49,6 +50,7 @@ final class ChatsViewController: UIViewController{
         navigationController?.navigationBar.topItem?.setRightBarButton(addButton, animated: true)
         
         userOnScreen = true
+        userOnMessageScreen = false
         localFetchDialogs()
     }
     
@@ -67,6 +69,7 @@ final class ChatsViewController: UIViewController{
     override func viewWillDisappear(_ animated: Bool) {
         print("Chat disappear")
         userOnScreen = false
+        userOnMessageScreen = true
     }
     
     private func setupDialogs(){
@@ -378,7 +381,36 @@ final class ChatsViewController: UIViewController{
     //MARK: - Objc methods
     @objc
     func barBurronTapped(){
-        //TODO:
+        let alertController = UIAlertController(title: "Add new dialogue", message: "Phone number without country code", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Add", style: .default) { (_) in
+            if let txtField = alertController.textFields?.first, let text = txtField.text {
+                self.createNewDialog(phone: text)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        alertController.addTextField { (textField) in
+            textField.placeholder = "9876543210"
+        }
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    private func createNewDialog(phone: String){
+        
+        let payload = wsRequestModels.members(members: [phone])
+        let request = wsRequestModels.wsRequestNewDialog(route: "newDialog", payload: payload)
+        
+        do{
+            let message = try JSONEncoder().encode(request)
+            
+            wsSend(message: String(decoding: message, as: UTF8.self))
+                print("New dialog")
+            
+        }
+        catch{
+            print("error")
+        }
     }
     
 }
@@ -448,6 +480,9 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
                 
                 for member in newDialogRequest.payload.newDialog.members{
                     if(defaults.string(forKey: "phone") != member){
+                        
+                        
+                        
                         fetchUserData(phone: member, dialog_id: newDialogRequest.payload.newDialog.dialog_id)
                     }
                 }
@@ -498,7 +533,10 @@ extension ChatsViewController: URLSessionWebSocketDelegate{
             }
             
             localFetchDialogs()
-            
+            guard let phone = defaults.string(forKey: "phone") else {return}
+            if newCDMessage.user_id != phone{
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            }
             return
         }
         

@@ -11,7 +11,7 @@ import CoreData
 final class SettingsViewController: UIViewController{
     //MARK: Storages
     private let defaults = UserDefaults.standard
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var context: NSManagedObjectContext?
     private var currentUser: User?
     //MARK: UI elements
     private let spinner = UIActivityIndicatorView(style: .large)
@@ -40,6 +40,10 @@ final class SettingsViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let context = UIApplication.shared.delegate as? AppDelegate{
+            self.context = context.persistentContainer.viewContext
+        }
         
         setupViews()
         
@@ -154,6 +158,7 @@ final class SettingsViewController: UIViewController{
     //MARK: - UserData
     private func getUserData(){
         //Setting up request
+        guard let context = context else {return}
         
         let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
         guard let phone = defaults.string(forKey: "phone") else {return}
@@ -186,12 +191,12 @@ final class SettingsViewController: UIViewController{
         catch{
             
             for user in data{
-                self.context.delete(user)
+                context.delete(user)
             }
             
             //data saving
             do{
-                try self.context.save()
+                try context.save()
             }
             catch{
                 return
@@ -208,6 +213,7 @@ final class SettingsViewController: UIViewController{
     //MARK: - Fetches
     
     private func fetchUserData(){
+        guard let context = context else {return}
         guard let phone = defaults.string(forKey: "phone") else {return}
         guard let token = defaults.string(forKey: "token") else {return}
         let parameters: [String: String] = ["phone": phone]
@@ -222,7 +228,7 @@ final class SettingsViewController: UIViewController{
                     print(statusCode)
                     let responseData = responseJSON.data
                     DispatchQueue.main.sync {
-                        let newUser = User(context: self.context)
+                        let newUser = User(context: context)
                         
                         newUser.surname =  responseData.surname
                         newUser.name = responseData.name
@@ -230,7 +236,7 @@ final class SettingsViewController: UIViewController{
                         newUser.imageBlob = responseData.imageBlob
                         
                         do{
-                            try self.context.save()
+                            try context.save()
                         }
                         catch{
                             
@@ -263,6 +269,7 @@ final class SettingsViewController: UIViewController{
     
     @objc
     private func logoutButtonPressed(){
+        guard let context = context else {return}
         let alert = UIAlertController(title: "Sign out?", message: "You can always access your account by signing back in", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -270,11 +277,11 @@ final class SettingsViewController: UIViewController{
         let logoutAction = UIAlertAction(title: "Sign out", style: .destructive){(action) in
             guard let user = self.currentUser else {return}
             
-            self.context.delete(user)
+            context.delete(user)
             
             //data saving
             do{
-                try self.context.save()
+                try context.save()
             }
             catch{
                 return
